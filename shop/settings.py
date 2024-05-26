@@ -146,9 +146,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # CORS settings
-CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://example.com",
+# ]
+# 如果需要允許所有網域，請使用以下配置（注意安全風險）
+CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = ['https://**.com',]
 
