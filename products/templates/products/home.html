@@ -1,0 +1,76 @@
+<!-- products/templates/products/home.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="products section bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="title text-center">
+                <h2>所有商品</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for item in items %}
+                <div class="col-md-4">
+                    <div class="product-item">
+                        <div class="product-thumb">
+                            {% if item.product_image_set.all.0.image %}
+                                <img class="img-responsive" src="{{ item.product_image_set.all.0.image.url }}" alt="product-img" />
+                            {% endif %}
+                            <div class="preview-meta">
+                                <ul>
+                                    <li>
+                                        <span  data-toggle="modal" data-target="#product-modal-{{ item.id }}">
+                                            <i class="tf-ion-ios-search-strong"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="getAjax('{% url 'orders:add_cart' item.id %}', '已加入購物車', 'false');"><i class="tf-ion-android-cart"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h4><a href="product-single.html">{{ item.name }}</a></h4>
+                            <p class="price">${{ item.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal product-modal fade" id="product-modal-{{ item.id }}">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="tf-ion-close"></i>
+                    </button>
+                    <div class="modal-dialog " role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row ">
+                                    <div class="col-md-8">
+                                        <div class="modal-image">
+                                            {% if item.product_image_set.all.0.image %}
+                                                <img class="img-responsive" src="{{ item.product_image_set.all.0.image.url }}" alt="product-img" />
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-short-details">
+                                            <h2 class="product-title">{{ item.name }}</h2>
+                                            <p class="product-price">${{ item.price }}</p>
+                                            <p class="product-short-description">
+                                                {{ item.description }}
+                                            </p>
+                                            <a href="javascript:void(0)" onclick="getAjax('{% url 'orders:add_cart' item.id %}', '已加入購物車', 'false')" class="btn btn-main">加入購物車</a>
+                                            <a href="{% url 'products:detail' item.id %}" class="btn btn-transparent ms-3">檢視商品詳細資料</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.modal -->
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

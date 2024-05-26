@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Main Menu Section -->
+<div class="page-wrapper">
+  <div class="cart shopping">
+    <div class="container">
+      <div class="product-list">
+        <form method="post">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="">商品</th>
+                <th class="">單價</th>
+                <th class="">數量</th>
+                <th class="">總計</th>
+                <th class="">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product_id, product in product_dict.items %}
+              <tr class="">
+                <td class="">
+                  <div class="product-info">
+                    {% if product.product.product_image_set.all %}
+                    {% if product.product.product_image_set.all.0.image %}
+                    <img width="80" src="{{ product.product.product_image_set.all.0.image.url }}" alt="" />
+                    {% endif %}
+                    {% endif %}
+                    <a href="">{{ product.product.name }}</a>
+                  </div>
+                </td>
+                <td class="">${{ product.product.price }}</td>
+                <td class="">
+                  {{ product.count }}
+                </td>
+                <td class="">${% widthratio product.product.price 1 product.count %}</td>
+                <td class="">
+                  <a href="javascript:void(0)"
+                    onclick="getAjax('{% url 'orders:delete_cart' product_id %}', '已移除商品', 'true');"
+                    class="product-remove">移除</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="checkbtn"><a href="{% url 'orders:checkout' %}" class="btn btn-main pull-right">結帳</a></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
