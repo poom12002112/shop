@@ -147,7 +147,7 @@ MEDIA_URL = '/media/'
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    'https://3e00-1-34-138-177.ngrok-free.app',
+    '*',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://**.com',]
