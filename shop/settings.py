@@ -147,7 +147,7 @@ MEDIA_URL = '/media/'
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    '*',
+    "https://example.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://**.com',]
